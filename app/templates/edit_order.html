@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit Order - NazCoffee</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --text: #18170c;
+        --background: #f4f4f4;
+        --primary: #adaf61;
+        --secondary: #b4d1a3;
+        --accent: #8cbf80;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .navbar {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar-brand {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      .card {
+        border-radius: 1rem;
+        padding: 2rem;
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .btn-order {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-order:hover {
+        background-color: var(--accent);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">NazCoffee</a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-orders">My Orders</a>
+            </li>
+          </ul>
+          {% if session.logged_in %}
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
+          {% else %}
+          <a class="btn btn-outline-success" href="/login">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages() %} {% if messages %} {% for
+          msg in messages %}
+          <div class="alert alert-info">{{ msg }}</div>
+          {% endfor %} {% endif %} {% endwith %}
+          <div class="card">
+            <div class="row g-4">
+              <div class="col-md-5">
+                <img
+                  src="{{ url_for('static', filename='product/' + order['image_path']) }}"
+                  class="img-fluid rounded"
+                  alt="{{ order.product_name }}"
+                />
+              </div>
+              <div class="col-md-7">
+                <h3>{{ order.product_name }}</h3>
+                <p class="text-muted">{{ order.description }}</p>
+                <h5 class="mb-3">
+                  Rp {{ "{:,.0f}".format(order.price).replace(",", ".") }}
+                </h5>
+                <form method="POST">
+                  <div class="mb-3">
+                    <label for="quantity" class="form-label">Edit Jumlah</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="quantity"
+                      name="quantity"
+                      min="1"
+                      value="{{ order.quantity }}"
+                      required
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-order">
+                    Simpan Perubahan
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

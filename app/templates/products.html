@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produk Kami - NazCoffee</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --text: #1e1e1e;
+        --background: #fdfdfd;
+        --primary: #1f5935; /* Rich Green */
+        --secondary: #e6f2ec; /* Soft background green */
+        --accent: #f4a261; /* New accent: warm terracotta */
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .navbar {
+        background-color: #fff !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar-brand {
+        color: var(--accent) !important;
+        font-size: 1.5rem;
+      }
+
+      .navbar-nav .nav-link {
+        color: #444 !important;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #8b4513 !important;
+      }
+
+      .section {
+        padding: 5rem 0;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .section:nth-child(even) {
+        background-color: var(--secondary);
+      }
+
+      .section img {
+        max-width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .section img:hover {
+        transform: scale(1.03);
+      }
+
+      h1,
+      h2 {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      p.lead {
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .fade-in {
+        animation: fadeInUp 0.6s ease-in-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+        text-decoration: none;
+      }
+
+      .social-icons a:hover {
+        color: var(--accent);
+      }
+
+      .section h2::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 4px;
+        background-color: var(--accent);
+        margin-top: 0.75rem;
+        border-radius: 2px;
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">NazCoffee</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/order">Order</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/menu">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold"
+                aria-current="page"
+                href="/products"
+                >Our Products</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-orders">My Orders</a>
+            </li>
+          </ul>
+          {% if session.logged_in %}
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
+          {% else %}
+          <a class="btn btn-outline-success" href="/login">Login</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <section class="section text-center fade-in">
+      <div class="container">
+        <h1 class="fw-bold mb-3">
+          Lebih dari sekadar kopi, tetapi juga soal pengalaman.
+        </h1>
+        <p class="lead">
+          NazCoffee hadir dengan komitmen untuk menyajikan produk berkualitas
+          tinggi yang tidak hanya memanjakan lidah, tetapi juga menghadirkan
+          pengalaman yang autentik dan berkesan. Melalui pilihan menu kopi,
+          makanan utama, minuman non-kopi, dan snack pendamping, kami
+          menghadirkan ragam rasa yang dirancang untuk menemani setiap momen,
+          dari pagi produktif hingga malam yang santai. Setiap produk kami
+          dibuat dengan bahan pilihan dan proses yang terstandar untuk menjaga
+          kualitas dan konsistensi.
+        </p>
+      </div>
+    </section>
+
+    <section class="section fade-in">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img
+              src="{{ url_for('static', filename='product/espresso.jpg') }}"
+              alt="Kopi NazCoffee"
+            />
+          </div>
+          <div class="col-md-6">
+            <h2 class="fw-bold">Kopi Berkualitas</h2>
+            <p>
+              Kami percaya bahwa secangkir kopi yang baik dimulai dari bahan
+              baku yang tepat dan proses penyajian yang teliti. Kami menyajikan
+              berbagai pilihan menu kopi, dari espresso klasik hingga kreasi
+              khas seperti Smoked Milk-Aren atau Cold Brew Pandan. Setiap
+              minuman dirancang untuk memenuhi selera beragam pelanggan, baik
+              pecinta kopi murni maupun penikmat rasa manis dan modern. Dengan
+              menggunakan biji kopi pilihan dan metode seduh yang profesional,
+              kami memastikan setiap tegukan menghadirkan rasa yang seimbang dan
+              memuaskan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in">
+      <div class="container">
+        <div class="row align-items-center flex-md-row-reverse">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img
+              src="{{ url_for('static', filename='product/chicken_mushroom.jpg') }}"
+              alt="Makanan NazCoffee"
+            />
+          </div>
+          <div class="col-md-6">
+            <h2 class="fw-bold">Masakan Otentik</h2>
+            <p>
+              Kami menghadirkan pilihan makanan utama yang mengenyangkan namun
+              tetap cocok dinikmati di suasana coffee shop. Dari Nasi Ayam
+              Sambal Matah hingga Beef Teriyaki Rice Bowl, setiap hidangan
+              dirancang dengan perpaduan rasa lokal dan sentuhan modern.
+              NazCoffee mengutamakan bahan segar, bumbu yang seimbang, serta
+              penyajian yang menarik untuk memastikan kualitas terbaik di setiap
+              piring.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img
+              src="{{ url_for('static', filename='product/matcha_latte.jpg') }}"
+              alt="Minuman Non-Kopi"
+            />
+          </div>
+          <div class="col-md-6">
+            <h2 class="fw-bold">Non-Coffee Beverages</h2>
+            <p>
+              Kami memahami bahwa tidak semua pelanggan datang untuk menikmati
+              kopi. Karena itu, NazCoffee juga menghadirkan berbagai pilihan
+              minuman non-kopi yang menarik. Dari Matcha Latte yang lembut,
+              Choco Hazelnut yang manis dan kaya rasa, hingga Berry Sparkle yang
+              menyegarkan, setiap minuman disiapkan dengan kualitas bahan
+              terbaik. Minuman non-kopi kami dirancang untuk menjadi pilihan
+              alternatif yang tetap menghadirkan kenikmatan dan suasana santai.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section text-center fade-in">
+      <div class="container">
+        <h2 class="fw-bold">Terima Kasih Telah Berkunjung!</h2>
+        <p class="mt-3">
+          Kami sangat menghargai setiap pelanggan yang mengunjungi NazCoffee,
+          baik secara langsung maupun melalui platform online ini. Lokasi kami
+          tersedia di beberapa kota besar dan terus berkembang agar lebih dekat
+          dengan Anda.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="social-icons mb-2">
+          <a href="#" title="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="#" title="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+          <a href="#" title="Facebook"><i class="ri-facebook-fill"></i></a>
+        </div>
+        <p class="mb-0">&copy; 2025 NazCoffee. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
